@@ -15,8 +15,6 @@ int statusOut1 = LOW;
 int switchedOut0 = 0;
 int switchedOut1 = 0;
 
-int minimumWaitTime = 5000;
-
 void setup() {
   pinMode(pinDeviceIn0, INPUT);
   pinMode(pinDeviceOut0, OUTPUT);
@@ -30,16 +28,21 @@ void setup() {
   
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
-  lcd.print("Stables v1.0");
+  lcd.print("Stables v2.1");
   lcd.setCursor(0, 1);
   lcd.print("Please wait...");
-  delay(0);
+  delay(1000);
   lcd.clear();
 }
 
 void loop() {
-  int reading = digitalRead(pinDeviceIn0);
-  if (reading != referenceStatusIn0) {
+  int reading1 = digitalRead(pinDeviceIn0);
+  delay(500);
+  int reading2 = digitalRead(pinDeviceIn0);
+  delay(500);
+  int reading3 = digitalRead(pinDeviceIn0);
+
+  if (reading1 != referenceStatusIn0 && reading2 != referenceStatusIn0 && reading3 != referenceStatusIn0) {
     statusOut0 = !statusOut0;
     statusOut1 = !statusOut1;
 
@@ -50,8 +53,6 @@ void loop() {
     switchedOut1++;
 
     lcd.clear();
-
-    delay(minimumWaitTime);
   }
 
   lcd.setCursor(0, 0);
